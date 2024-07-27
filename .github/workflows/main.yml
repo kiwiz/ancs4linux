@@ -5,12 +5,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-python@v2
+    - uses: actions-rs/toolchain@v1
       with:
-        python-version: "3.7"
-        architecture: x64
+        toolchain: stable
     - run: sudo apt-get update
     - run: sudo apt-get install -y libgirepository1.0-dev
     - uses: actions/checkout@v2
-    - run: pip3 install poetry
-    - run: ./ci.sh
+    - run: cargo build --release
+    - run: cargo test
